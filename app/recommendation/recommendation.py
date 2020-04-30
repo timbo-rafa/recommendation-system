@@ -14,6 +14,9 @@ def recommend(cliente):
 
     svclassifier, df, le = ClassifierSingleton.get()
 
+    if cliente not in list(le['client'].classes_) :
+        raise Exception('cliente "{cliente}" inexistente'.format(cliente=cliente))
+
     client_le = le['client'].transform([cliente])[0]
     x_client = df[df['client'] == client_le].drop('key', axis=1)
     

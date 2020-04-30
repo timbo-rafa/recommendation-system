@@ -14,7 +14,6 @@ class ClassifierSingleton:
 
     @staticmethod
     def get():
-        key = "recommendation-system"
         classifier = ClassifierSingleton.__classifier
 
         if classifier == None:
@@ -23,7 +22,11 @@ class ClassifierSingleton:
             ClassifierSingleton.__df = df
             ClassifierSingleton.__le = le
 
-        return classifier, df, le
+        return (
+            ClassifierSingleton.__classifier,
+            ClassifierSingleton.__df,
+            ClassifierSingleton.__le
+        )
     
     @staticmethod
     def instantiate():
