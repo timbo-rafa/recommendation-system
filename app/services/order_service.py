@@ -16,7 +16,8 @@ class OrderService:
             'variety' : list(),
             'country' : list(),
             'category': list(),
-            'vintage': list()
+            'vintage': list(),
+            'key': list()
         }
         for o in self.orders:
             for i in o['itens']:
@@ -26,6 +27,12 @@ class OrderService:
                 self.data['country'] .append(i['pais'])
                 self.data['category'].append(i['categoria'])
                 self.data['vintage'] .append(int(i['safra']))
+                self.data['key'].append(
+                    i['produto']+','+
+                    i['variedade']+','+
+                    i['pais']+','+
+                    i['safra']+','+
+                    i['categoria'])
     
     def fetch_orders(self):
         headers = { 'content-type': 'application/json' }
