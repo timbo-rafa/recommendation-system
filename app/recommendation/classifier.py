@@ -16,6 +16,8 @@ class Classifier:
         raw_orders = self.order_service.get_orders()
         orders = self.format_orders_panda(raw_orders)
         
+        # Label Encoders transform words into numbers
+        # so we can apply the calculations
         self.le = {
             'client'  : LabelEncoder(),
             'product' : LabelEncoder(),
@@ -43,7 +45,6 @@ class Classifier:
 
         self.svclassifier = SVC(kernel=self.kernel)
         self.svclassifier.fit(X, Y)
-
     
     def format_orders_panda(self, raw_orders):
         panda_orders = {
@@ -76,6 +77,7 @@ class Classifier:
         if not self.has_imported:
             self.import_data()
             self.has_imported = True
+
         client_le = self.le['client'].transform([cliente])[0]
         x_client = self.df[self.df['client'] == client_le].drop('key', axis=1)
         
